@@ -6,8 +6,8 @@ namespace AfaqMall.Models
         public required string Name { get; set; }
         public decimal Price { get; set; }
 
-        // استرجاع CategoryId القديم للتوافق مع SeedData و Controllers
-        public int? CategoryId { get; set; } // nullable لتجنب مشاكل الربط القديم
+        // لإبقاء SeedData و Controllers القديمة تعمل
+        public int? CategoryId { get; set; }
         public required string Category { get; set; }
 
         public int StockQuantity { get; set; }
