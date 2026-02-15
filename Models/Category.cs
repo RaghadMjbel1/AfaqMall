@@ -7,7 +7,7 @@ namespace AfaqMall.Models
         public int Id { get; set; }
         public required string Name { get; set; }
 
-        // إضافة العلاقة مع المنتجات لتوافق Admin Dashboard
+        // علاقة مع المنتجات لتوافق Admin Dashboard
         public List<Product>? Products { get; set; }
     }
 }
