@@ -1,0 +1,79 @@
+@model List<AfaqMall.Models.Category>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2>Admin Dashboard</h2>
+
+@foreach (var category in Model)
+{
+    <h3>@category.Name</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in category.Products ?? new List<AfaqMall.Models.Product>())
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>$@product.Price</td>
+                    <td>@product.StockQuantity</td>
+                    <td>
+                        <form method="post" asp-controller="Admin" asp-action="EditProduct" style="display:inline">
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <input type="text" name="name" value="@product.Name" />
+                            <input type="number" name="price" value="@product.Price" step="0.01" />
+                            <input type="number" name="stock" value="@product.StockQuantity" />
+                            <button type="submit">Edit</button>
+                        </form>
+                        <form method="post" asp-controller="Admin" asp-action="DeleteProduct" style="display:inline">
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Add New Product</h4>
+    <form method="post" asp-controller="Admin" asp-action="AddProduct">
+        <input type="hidden" name="categoryId" value="@category.Id" />
+        <input type="text" name="name" placeholder="Product Name" required />
+        <input type="number" name="price" placeholder="Price" step="0.01" required />
+        <input type="number" name="stock" placeholder="Stock" required />
+        <button type="submit">Add</button>
+    </form>
+}
+
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+form {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+input {
+    margin-right: 5px;
+    padding: 3px;
+}
+</style>
