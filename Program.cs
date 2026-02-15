@@ -1,43 +1,35 @@
-using Microsoft.EntityFrameworkCore;
 using AfaqMall.Data;
 using AfaqMall.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// إضافة الخدمات
+// إضافة الخدمات العادية
 builder.Services.AddControllersWithViews();
 
-// إعداد قاعدة البيانات (SQLite كمثال)
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+// استدعاء SeedData.Initialize() لتجنب CS0117
+SeedData.Initialize();
 
-// إعداد خدمة Telegram
-builder.Services.AddSingleton<TelegramService>(provider =>
-{
-    var botToken = builder.Configuration["Telegram:BotToken"];
-    var chatId = builder.Configuration["Telegram:ChatId"];
-    return new TelegramService(botToken, chatId);
-});
+// إعداد TelegramService مع قيم فارغة لتجنب التحذيرات
+string botToken = Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN") ?? "";
+string chatId = Environment.GetEnvironmentVariable("TELEGRAM_CHAT_ID") ?? "";
+var telegramService = new TelegramService(botToken, chatId);
 
 var app = builder.Build();
 
-// تهيئة SeedData عند التشغيل لأول مرة
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    SeedData.Initialize(dbContext);
-}
-
-// إعداد الـ Middleware
+// إعداد الـ Middleware المعتاد
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseAuthorization();
 
-// إعداد الـ Routes
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
