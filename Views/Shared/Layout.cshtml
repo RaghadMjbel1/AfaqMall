@@ -1,24 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>AfaqMall</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS مخصص -->
     <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="/">AfaqMall</a>
-            <div class="d-flex ms-auto">
-                <input class="form-control me-2" type="search" placeholder="بحث">
-                <a class="btn btn-outline-light me-2" href="/Cart">🛒</a>
-                <a class="btn btn-outline-light" href="#">❤️</a>
+            <a class="navbar-brand fw-bold" href="/">AfaqMall</a>
+
+            <!-- زر الهامبرغر للهواتف -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="تبديل التنقل">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- المحتوى القابل للطي -->
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <!-- الأقسام (يمكن إضافة روابط لاحقًا) -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="/Category/List/1">ملابس</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Category/List/2">أحذية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Category/List/3">حقائب</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Category/List/4">ميك أب</a></li>
+                </ul>
+
+                <!-- البحث + السلة + المفضلة -->
+                <form class="d-flex me-3" role="search">
+                    <input class="form-control me-2" type="search" placeholder="بحث">
+                    <button class="btn btn-light" type="submit">بحث</button>
+                </form>
+
+                <div class="d-flex align-items-center">
+                    <a class="btn btn-outline-light me-2" href="/Cart">🛒 السلة</a>
+                    <a class="btn btn-outline-light" href="#">❤️ المفضلة</a>
+                </div>
             </div>
         </div>
     </nav>
+
+    <!-- محتوى الصفحة -->
     <div class="container mt-4">
         @RenderBody()
     </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
