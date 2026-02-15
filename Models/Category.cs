@@ -6,8 +6,6 @@ namespace AfaqMall.Models
     {
         public int Id { get; set; }
         public required string Name { get; set; }
-
-        // علاقة مع المنتجات لتوافق Admin Dashboard
-        public List<Product>? Products { get; set; }
+        public List<Product> Products { get; set; } = new();
     }
 }
