@@ -1,10 +1,6 @@
-@model List<AfaqMall.Models.CartItem>
+@model List<AfaqMall.Models.Product>
 
-@{
-    ViewData["Title"] = "Checkout";
-}
-
-<h2>Checkout</h2>
+<h2>Checkout (Demo)</h2>
 
 @if (!Model.Any())
 {
@@ -25,31 +21,30 @@ else
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Product.Name</td>
-                    <td>$@item.Product.Price</td>
-                    <td>@item.Quantity</td>
-                    <td>$@(item.Product.Price * item.Quantity)</td>
+                    <td>@item.Name</td>
+                    <td>$@item.Price</td>
+                    <td>1</td>
+                    <td>$@item.Price</td>
                 </tr>
             }
         </tbody>
     </table>
 
     <h3>Enter Your Details</h3>
-    <form method="post" asp-controller="Order" asp-action="Confirm">
-        <input type="hidden" name="userId" value="demoUser" />
+    <form>
         <label>Full Name:</label><br />
-        <input type="text" name="fullName" required /><br /><br />
+        <input type="text" placeholder="Your Name" /><br /><br />
 
         <label>Phone Number:</label><br />
-        <input type="text" name="phoneNumber" required /><br /><br />
+        <input type="text" placeholder="Phone" /><br /><br />
 
         <label>Address:</label><br />
-        <input type="text" name="address" required /><br /><br />
+        <input type="text" placeholder="Address" /><br /><br />
 
-        <label>Payment Code (Sham Cash):</label><br />
-        <input type="text" name="paymentCode" required /><br /><br />
+        <label>Payment Code:</label><br />
+        <input type="text" placeholder="Sham Cash Code" /><br /><br />
 
-        <button type="submit">Confirm Order</button>
+        <button type="button">Confirm Order</button>
     </form>
 }
 
