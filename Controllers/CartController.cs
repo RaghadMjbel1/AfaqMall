@@ -1,67 +1,41 @@
 using Microsoft.AspNetCore.Mvc;
-using AfaqMall.Data;
 using AfaqMall.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+using AfaqMall.Data;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace AfaqMall.Controllers
 {
     public class CartController : Controller
     {
-        private readonly AppDbContext _context;
+        private static List<CartItem> Cart = new List<CartItem>();
+        private readonly List<Category> _categories;
 
-        public CartController(AppDbContext context)
+        public CartController()
         {
-            _context = context;
+            _categories = SeedData.GetCategories();
         }
 
-        // عرض محتوى السلة
-        public async Task<IActionResult> Index(string userId)
+        public IActionResult Index()
         {
-            var cartItems = await _context.CartItems
-                .Include(c => c.Product)
-                .Where(c => c.UserId == userId)
-                .ToListAsync();
-
-            return View(cartItems);
+            return View(Cart);
         }
 
-        // إضافة منتج إلى السلة
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int productId, int quantity, string userId)
+        public IActionResult AddToCart(int categoryId, int productIndex)
         {
-            var cartItem = await _context.CartItems
-                .FirstOrDefaultAsync(c => c.ProductId == productId && c.UserId == userId);
-
-            if (cartItem != null)
+            var category = _categories.FirstOrDefault(c => c.Id == categoryId);
+            var product = category?.Products?[productIndex];
+            if (product != null)
             {
-                cartItem.Quantity += quantity;
-                _context.CartItems.Update(cartItem);
-            }
-            else
-            {
-                _context.CartItems.Add(new CartItem
+                var cartItem = new CartItem
                 {
-                    ProductId = productId,
-                    Quantity = quantity,
-                    UserId = userId
-                });
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
-        // إزالة منتج من السلة
-        [HttpPost]
-        public async Task<IActionResult> Remove(int cartItemId)
-        {
-            var item = await _context.CartItems.FindAsync(cartItemId);
-            if (item != null)
-            {
-                _context.CartItems.Remove(item);
-                await _context.SaveChangesAsync();
+                    UserId = "demo_user",
+                    Product = product, // required
+                    ProductId = product.Id,
+                    Quantity = 1
+                };
+                Cart.Add(cartItem);
             }
             return RedirectToAction("Index");
         }
