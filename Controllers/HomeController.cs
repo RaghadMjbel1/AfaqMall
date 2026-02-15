@@ -1,13 +1,15 @@
+using AfakStore.Models;
 using Microsoft.AspNetCore.Mvc;
-using AfaqMall.Data;
-using AfaqMall.Models;
 using System.Collections.Generic;
 
-namespace AfaqMall.Controllers
+namespace AfakStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly List<Category> _categories = SeedData.GetCategories();
-        public IActionResult Index() => View(_categories);
+        public IActionResult Index()
+        {
+            List<Category> categories = SeedData.GetSampleCategories();
+            return View(categories);
+        }
     }
 }
