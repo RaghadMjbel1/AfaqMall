@@ -1,41 +1,33 @@
-@model List<AfaqMall.Models.Product>
+@model List<AfaqMall.Models.Category>
 
-<h2>Featured Products</h2>
-
-<div class="product-grid">
-    @foreach (var product in Model)
+<h2>الأقسام</h2>
+<div class="row mb-4">
+    @foreach (var category in Model)
     {
-        <div class="product-card">
-            <img src="@product.ImageUrl" alt="@product.Name" />
-            <h3>@product.Name</h3>
-            <p>Category: @product.Category</p>
-            <p>Price: $@product.Price</p>
-            <p>Stock: @product.StockQuantity</p>
-            <button>Add to Cart</button>
+        <div class="col-6 col-md-3 mb-3">
+            <a href="/Category/List/@category.Id" class="btn btn-primary w-100">@category.Name</a>
         </div>
     }
 </div>
 
-<style>
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 15px;
-}
-.product-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-}
-.product-card img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 5px;
-}
-button {
-    padding: 5px 10px;
-    margin-top: 5px;
-}
-</style>
+<h2>منتجات متنوعة</h2>
+<div class="row">
+    @foreach (var category in Model)
+    {
+        foreach (var product in category.Products.Take(5))
+        {
+            <div class="col-6 col-md-3 mb-3">
+                <div class="card">
+                    <img src="@product.ImageUrl" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p>@product.Price $</p>
+                        <p>⭐⭐⭐ (@product.Rating)</p>
+                        <button class="btn btn-sm btn-outline-danger">❤️</button>
+                        <a href="/Cart/AddToCart?categoryId=@category.Id&productIndex=@category.Products.IndexOf(product)" class="btn btn-sm btn-primary">🛒</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
