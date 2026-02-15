@@ -1,0 +1,39 @@
+@model List<AfaqMall.Models.Product>
+
+@{
+    ViewData["Title"] = ViewBag.CategoryName + " Products";
+}
+
+<h2>@ViewBag.CategoryName</h2>
+
+<div class="product-grid">
+    @foreach (var product in Model)
+    {
+        <div class="product-card">
+            <h3>@product.Name</h3>
+            <p>Price: $@product.Price</p>
+            <p>Stock: @product.StockQuantity</p>
+            <form method="post" asp-controller="Cart" asp-action="AddToCart">
+                <input type="hidden" name="productId" value="@product.Id" />
+                <input type="hidden" name="quantity" value="1" />
+                <input type="hidden" name="userId" value="demoUser" />
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+    }
+</div>
+
+<style>
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.product-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+</style>
