@@ -1,46 +1,38 @@
 using AfaqMall.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace AfaqMall.Data
 {
     public static class SeedData
     {
-        public static void Initialize(AppDbContext context)
+        public static List<Category> GetCategories()
         {
-            context.Database.EnsureCreated();
-
-            // إذا كان هناك أقسام بالفعل، لا نفعل شيء
-            if (context.Categories.Any())
-                return;
-
-            // إنشاء الأقسام الأربعة
-            var categories = new Category[]
+            var categories = new List<Category>
             {
-                new Category { Name = "Clothes" },
-                new Category { Name = "Shoes" },
-                new Category { Name = "Bags" },
-                new Category { Name = "Makeup" }
+                new Category { Id = 1, Name = "Clothes", Products = new List<Product>() },
+                new Category { Id = 2, Name = "Shoes", Products = new List<Product>() },
+                new Category { Id = 3, Name = "Bags", Products = new List<Product>() },
+                new Category { Id = 4, Name = "Makeup", Products = new List<Product>() }
             };
-            context.Categories.AddRange(categories);
-            context.SaveChanges();
 
-            // لكل قسم، إنشاء 30 منتج تجريبي
-            foreach (var cat in categories)
+            foreach (var category in categories)
             {
                 for (int i = 1; i <= 30; i++)
                 {
-                    context.Products.Add(new Product
+                    var product = new Product
                     {
-                        Name = $"{cat.Name} Product {i}",
-                        Price = 10 + i, // أسعار تجريبية
-                        StockQuantity = 50, // كمية تجريبية
-                        CategoryId = cat.Id
-                    });
+                        Name = $"{category.Name} Product {i}",
+                        Price = 10 + i,
+                        StockQuantity = 50,
+                        Category = category.Name, // required
+                        CategoryId = category.Id,
+                        ImageUrl = $"https://picsum.photos/seed/{category.Name.ToLower()}{i}/200/200"
+                    };
+                    category.Products?.Add(product);
                 }
             }
 
-            context.SaveChanges();
+            return categories;
         }
     }
 }
