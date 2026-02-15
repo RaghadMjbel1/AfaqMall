@@ -1,35 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
 using AfaqMall.Data;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+using AfaqMall.Models;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace AfaqMall.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly List<Category> _categories;
 
-        public CategoryController(AppDbContext context)
+        public CategoryController()
         {
-            _context = context;
+            _categories = SeedData.GetCategories();
         }
 
-        // عرض جميع المنتجات لقسم محدد
-        public async Task<IActionResult> List(int id)
+        public IActionResult List(int id)
         {
-            // جلب القسم حسب المعرف
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-                return NotFound();
-
-            // جلب المنتجات الخاصة بالقسم
-            var products = await _context.Products
-                .Where(p => p.CategoryId == id)
-                .ToListAsync();
-
-            ViewBag.CategoryName = category.Name;
-            return View(products);
+            var category = _categories.FirstOrDefault(c => c.Id == id);
+            if (category == null) return NotFound();
+            return View(category);
         }
     }
 }
