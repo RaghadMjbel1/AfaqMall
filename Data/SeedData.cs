@@ -1,25 +1,24 @@
 using AfaqMall.Models;
+using System;
 using System.Collections.Generic;
 
 namespace AfaqMall.Data
 {
     public static class SeedData
     {
-        // دالة Initialize لإبقاء Program.cs كما هو
         public static void Initialize()
         {
             var categories = GetCategories();
-            // إذا كان لديك قاعدة بيانات لاحقًا يمكن إدخال البيانات هنا
         }
 
         public static List<Category> GetCategories()
         {
             var categories = new List<Category>
             {
-                new Category { Id = 1, Name = "Clothes", Products = new List<Product>() },
-                new Category { Id = 2, Name = "Shoes", Products = new List<Product>() },
-                new Category { Id = 3, Name = "Bags", Products = new List<Product>() },
-                new Category { Id = 4, Name = "Makeup", Products = new List<Product>() }
+                new Category { Id = 1, Name = "ملابس", Products = new List<Product>() },
+                new Category { Id = 2, Name = "أحذية", Products = new List<Product>() },
+                new Category { Id = 3, Name = "حقائب", Products = new List<Product>() },
+                new Category { Id = 4, Name = "ميك أب", Products = new List<Product>() }
             };
 
             foreach (var category in categories)
@@ -28,14 +27,16 @@ namespace AfaqMall.Data
                 {
                     var product = new Product
                     {
-                        Name = $"{category.Name} Product {i}",
+                        Name = $"{category.Name} منتج {i}",
                         Price = 10 + i,
                         StockQuantity = 50,
-                        Category = category.Name, // required
+                        Category = category.Name,
                         CategoryId = category.Id,
-                        ImageUrl = $"https://picsum.photos/seed/{category.Name.ToLower()}{i}/200/200"
+                        Rating = new Random().Next(3, 6), // 3-5 نجوم
+                        ImageUrl = $"https://picsum.photos/seed/{category.Name.ToLower()}{i}/200/200",
+                        IsFavorite = false
                     };
-                    category.Products?.Add(product);
+                    category.Products.Add(product);
                 }
             }
 
