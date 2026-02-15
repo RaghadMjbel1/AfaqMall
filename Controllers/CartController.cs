@@ -9,31 +9,17 @@ namespace AfaqMall.Controllers
     public class CartController : Controller
     {
         private static List<CartItem> Cart = new List<CartItem>();
-        private readonly List<Category> _categories;
+        private readonly List<Category> _categories = SeedData.GetCategories();
 
-        public CartController()
-        {
-            _categories = SeedData.GetCategories();
-        }
-
-        public IActionResult Index()
-        {
-            return View(Cart);
-        }
+        public IActionResult Index() => View(Cart);
 
         public IActionResult AddToCart(int categoryId, int productIndex)
         {
             var category = _categories.FirstOrDefault(c => c.Id == categoryId);
             var product = category?.Products[productIndex];
             if (product != null)
-            {
-                Cart.Add(new CartItem
-                {
-                    UserId = "demo_user",
-                    Product = product,
-                    Quantity = 1
-                });
-            }
+                Cart.Add(new CartItem { UserId = "demo_user", Product = product, Quantity = 1 });
+
             return Redirect(Request.Headers["Referer"].ToString());
         }
     }
