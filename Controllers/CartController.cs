@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using AfaqMall.Models;
 using AfaqMall.Data;
-using System.Linq;
+using AfaqMall.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AfaqMall.Controllers
 {
@@ -21,23 +21,20 @@ namespace AfaqMall.Controllers
             return View(Cart);
         }
 
-        [HttpPost]
         public IActionResult AddToCart(int categoryId, int productIndex)
         {
             var category = _categories.FirstOrDefault(c => c.Id == categoryId);
-            var product = category?.Products?[productIndex];
+            var product = category?.Products[productIndex];
             if (product != null)
             {
-                var cartItem = new CartItem
+                Cart.Add(new CartItem
                 {
                     UserId = "demo_user",
-                    Product = product, // required
-                    ProductId = product.Id,
+                    Product = product,
                     Quantity = 1
-                };
-                Cart.Add(cartItem);
+                });
             }
-            return RedirectToAction("Index");
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }
