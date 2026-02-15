@@ -1,18 +1,20 @@
 @model AfaqMall.Models.Category
 
 <h2>@Model.Name</h2>
-<div class="row">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
     @foreach (var product in Model.Products)
     {
-        <div class="col-6 col-md-3 mb-3">
-            <div class="card">
+        <div class="col">
+            <div class="card h-100">
                 <img src="@product.ImageUrl" class="card-img-top" />
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">@product.Name</h5>
-                    <p>@product.Price $</p>
-                    <p>⭐⭐⭐ (@product.Rating)</p>
-                    <button class="btn btn-sm btn-outline-danger">❤️</button>
-                    <a href="/Cart/AddToCart?categoryId=@Model.Id&productIndex=@Model.Products.IndexOf(product)" class="btn btn-sm btn-primary">🛒</a>
+                    <p class="text-primary fw-bold">@product.Price $</p>
+                    <p>⭐ @product.Rating</p>
+                    <div class="mt-auto">
+                        <button class="btn btn-outline-danger btn-sm">❤️</button>
+                        <a href="/Cart/AddToCart?categoryId=@Model.Id&productIndex=@Model.Products.IndexOf(product)" class="btn btn-primary btn-sm">🛒</a>
+                    </div>
                 </div>
             </div>
         </div>
