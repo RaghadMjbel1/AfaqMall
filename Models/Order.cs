@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace AfaqMall.Models
@@ -9,6 +10,11 @@ namespace AfaqMall.Models
         public required string PhoneNumber { get; set; }
         public required string Address { get; set; }
         public required string PaymentCode { get; set; }
-        public List<Product>? Products { get; set; } // nullable لتجنب التحذير
+        public List<Product>? Products { get; set; }
+
+        // إضافات لمزامنة Controllers والViews القديمة
+        public decimal TotalAmount { get; set; }
+        public bool IsPaid { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
