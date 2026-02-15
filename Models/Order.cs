@@ -12,7 +12,7 @@ namespace AfaqMall.Models
         public required string PaymentCode { get; set; }
         public List<Product>? Products { get; set; }
 
-        // إضافات لمزامنة Controllers والViews القديمة
+        // لمزامنة Views و Controllers القديمة
         public decimal TotalAmount { get; set; }
         public bool IsPaid { get; set; }
         public DateTime CreatedAt { get; set; }
