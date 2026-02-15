@@ -1,25 +1,17 @@
 @model List<AfaqMall.Models.Product>
 
-@{
-    ViewData["Title"] = "Home";
-}
-
 <h2>Featured Products</h2>
 
 <div class="product-grid">
     @foreach (var product in Model)
     {
         <div class="product-card">
+            <img src="@product.ImageUrl" alt="@product.Name" />
             <h3>@product.Name</h3>
-            <p>Category: @product.Category.Name</p>
+            <p>Category: @product.Category</p>
             <p>Price: $@product.Price</p>
             <p>Stock: @product.StockQuantity</p>
-            <form method="post" asp-controller="Cart" asp-action="AddToCart">
-                <input type="hidden" name="productId" value="@product.Id" />
-                <input type="hidden" name="quantity" value="1" />
-                <input type="hidden" name="userId" value="demoUser" />
-                <button type="submit">Add to Cart</button>
-            </form>
+            <button>Add to Cart</button>
         </div>
     }
 </div>
@@ -30,11 +22,20 @@
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 15px;
 }
-
 .product-card {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
+}
+.product-card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+button {
+    padding: 5px 10px;
+    margin-top: 5px;
 }
 </style>
