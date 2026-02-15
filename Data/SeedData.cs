@@ -6,11 +6,6 @@ namespace AfaqMall.Data
 {
     public static class SeedData
     {
-        public static void Initialize()
-        {
-            var categories = GetCategories();
-        }
-
         public static List<Category> GetCategories()
         {
             var categories = new List<Category>
@@ -25,21 +20,18 @@ namespace AfaqMall.Data
             {
                 for (int i = 1; i <= 30; i++)
                 {
-                    var product = new Product
+                    category.Products.Add(new Product
                     {
                         Name = $"{category.Name} منتج {i}",
-                        Price = 10 + i,
-                        StockQuantity = 50,
+                        Price = Math.Round(10 + new Random().NextDouble() * 90, 2),
+                        Rating = new Random().Next(3, 6),
+                        ImageUrl = $"https://picsum.photos/seed/{category.Name.ToLower()}{i}/300/300",
                         Category = category.Name,
                         CategoryId = category.Id,
-                        Rating = new Random().Next(3, 6), // 3-5 نجوم
-                        ImageUrl = $"https://picsum.photos/seed/{category.Name.ToLower()}{i}/200/200",
                         IsFavorite = false
-                    };
-                    category.Products.Add(product);
+                    });
                 }
             }
-
             return categories;
         }
     }
