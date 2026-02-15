@@ -45,20 +45,3 @@ input[type="text"], input[type="number"], input[type="search"] {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
-
-.navbar {
-    background-color: #0d6efd;
-    color: white;
-}
-
-.navbar a, .navbar input {
-    margin-left: 10px;
-}
-
-.row-cols-1 {
-    margin-bottom: 15px;
-}
-
-.card-body .btn {
-    margin-right: 5px;
-}
