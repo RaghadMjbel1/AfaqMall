@@ -1,9 +1,11 @@
-namespace AfaqMall.Models
+using System.Collections.Generic;
+
+namespace AfakStore.Models
 {
     public class Category
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
         public List<Product> Products { get; set; } = new List<Product>();
     }
 }
