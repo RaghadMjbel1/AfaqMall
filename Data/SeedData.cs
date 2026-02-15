@@ -5,6 +5,13 @@ namespace AfaqMall.Data
 {
     public static class SeedData
     {
+        // دالة Initialize لإبقاء Program.cs كما هو
+        public static void Initialize()
+        {
+            var categories = GetCategories();
+            // إذا كان لديك قاعدة بيانات لاحقًا يمكن إدخال البيانات هنا
+        }
+
         public static List<Category> GetCategories()
         {
             var categories = new List<Category>
