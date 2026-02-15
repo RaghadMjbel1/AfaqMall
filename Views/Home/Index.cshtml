@@ -1,5 +1,9 @@
 @model List<AfaqMall.Models.Category>
 
+@{
+    Layout = "_Layout";
+}
+
 <h2>الأقسام</h2>
 <div class="row mb-4">
     @foreach (var category in Model)
@@ -14,7 +18,7 @@
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
     @foreach (var category in Model)
     {
-        foreach (var product in category.Products.Take(5))
+        foreach (var product in category.Products.Take(5)) <!-- 5 منتجات متنوعة لكل قسم -->
         {
             <div class="col">
                 <div class="card h-100">
@@ -23,7 +27,7 @@
                         <h5 class="card-title">@product.Name</h5>
                         <p class="text-primary fw-bold">@product.Price $</p>
                         <p>⭐ @product.Rating</p>
-                        <div class="mt-auto">
+                        <div class="mt-auto d-flex justify-content-between">
                             <button class="btn btn-outline-danger btn-sm">❤️</button>
                             <a href="/Cart/AddToCart?categoryId=@category.Id&productIndex=@category.Products.IndexOf(product)" class="btn btn-primary btn-sm">🛒</a>
                         </div>
