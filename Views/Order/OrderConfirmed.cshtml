@@ -1,0 +1,35 @@
+@model AfaqMall.Models.Order
+
+@{
+    ViewData["Title"] = "Order Confirmed";
+}
+
+<h2>Thank You for Your Order!</h2>
+
+<p>Your order has been placed successfully.</p>
+
+<div>
+    <p><strong>Order ID:</strong> @Model.Id</p>
+    <p><strong>Name:</strong> @Model.FullName</p>
+    <p><strong>Phone:</strong> @Model.PhoneNumber</p>
+    <p><strong>Address:</strong> @Model.Address</p>
+    <p><strong>Total Amount:</strong> $@Model.TotalAmount</p>
+    <p><strong>Payment Code:</strong> @Model.PaymentCode</p>
+</div>
+
+<p>Please make your payment via Sham Cash and confirm using the code provided.</p>
+
+<img src="~/images/payment-example.png" alt="Sham Cash Payment Example" style="max-width:300px;" />
+
+<style>
+div {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+img {
+    margin-top: 10px;
+}
+</style>
