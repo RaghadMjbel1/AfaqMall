@@ -1,0 +1,66 @@
+@model List<AfaqMall.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<h2>Your Cart</h2>
+
+@if (!Model.Any())
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>$@item.Product.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>$@(item.Product.Price * item.Quantity)</td>
+                    <td>
+                        <form method="post" asp-controller="Cart" asp-action="Remove">
+                            <input type="hidden" name="cartItemId" value="@item.Id" />
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form method="get" asp-controller="Order" asp-action="Checkout">
+        <input type="hidden" name="userId" value="demoUser" />
+        <button type="submit">Proceed to Checkout</button>
+    </form>
+}
+
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+button {
+    padding: 5px 10px;
+}
+</style>
