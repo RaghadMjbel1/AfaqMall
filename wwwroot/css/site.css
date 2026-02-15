@@ -1,6 +1,3 @@
-/* ===========================
-   التنسيقات العامة للصفحة
-   =========================== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 20px;
@@ -8,14 +5,10 @@ body {
     color: #333;
 }
 
-/* العناوين */
 h2, h3, h4 {
     color: #333;
 }
 
-/* ===========================
-   الأزرار
-   =========================== */
 button {
     background-color: #007bff;
     color: #fff;
@@ -30,7 +23,6 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* حقول الإدخال */
 input[type="text"], input[type="number"], input[type="search"] {
     padding: 5px;
     margin: 3px 0;
@@ -38,9 +30,6 @@ input[type="text"], input[type="number"], input[type="search"] {
     border-radius: 5px;
 }
 
-/* ===========================
-   بطاقات المنتجات
-   =========================== */
 .card {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -57,9 +46,6 @@ input[type="text"], input[type="number"], input[type="search"] {
     border-top-right-radius: 8px;
 }
 
-/* ===========================
-   Navbar
-   =========================== */
 .navbar {
     background-color: #0d6efd;
     color: white;
@@ -69,9 +55,6 @@ input[type="text"], input[type="number"], input[type="search"] {
     margin-left: 10px;
 }
 
-/* ===========================
-   Grid متجاوب للمنتجات
-   =========================== */
 .row-cols-1 {
     margin-bottom: 15px;
 }
