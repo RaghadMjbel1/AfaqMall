@@ -1,9 +1,5 @@
 @model List<AfaqMall.Models.Category>
 
-@{
-    Layout = "_Layout";
-}
-
 <h2>الأقسام</h2>
 <div class="row mb-4">
     @foreach (var category in Model)
@@ -18,7 +14,7 @@
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
     @foreach (var category in Model)
     {
-        foreach (var product in category.Products.Take(5)) <!-- 5 منتجات متنوعة لكل قسم -->
+        foreach (var product in category.Products.Take(5))
         {
             <div class="col">
                 <div class="card h-100">
