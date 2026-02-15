@@ -1,6 +1,4 @@
 using AfaqMall.Models;
-using System;
-using System.Collections.Generic;
 
 namespace AfaqMall.Data
 {
@@ -10,10 +8,10 @@ namespace AfaqMall.Data
         {
             var categories = new List<Category>
             {
-                new Category { Id = 1, Name = "ملابس", Products = new List<Product>() },
-                new Category { Id = 2, Name = "أحذية", Products = new List<Product>() },
-                new Category { Id = 3, Name = "حقائب", Products = new List<Product>() },
-                new Category { Id = 4, Name = "ميك أب", Products = new List<Product>() }
+                new Category { Id = 1, Name = "ملابس" },
+                new Category { Id = 2, Name = "أحذية" },
+                new Category { Id = 3, Name = "حقائب" },
+                new Category { Id = 4, Name = "ميك أب" }
             };
 
             foreach (var category in categories)
@@ -23,15 +21,13 @@ namespace AfaqMall.Data
                     category.Products.Add(new Product
                     {
                         Name = $"{category.Name} منتج {i}",
-                        Price = Math.Round(10 + new Random().NextDouble() * 90, 2),
-                        Rating = new Random().Next(3, 6),
-                        ImageUrl = $"https://picsum.photos/seed/{category.Name.ToLower()}{i}/300/300",
-                        Category = category.Name,
-                        CategoryId = category.Id,
-                        IsFavorite = false
+                        Price = 10 + i,
+                        Rating = (i % 5) + 1,
+                        ImageUrl = $"https://picsum.photos/seed/{category.Name.ToLower()}{i}/300/300"
                     });
                 }
             }
+
             return categories;
         }
     }
